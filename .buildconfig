@@ -1,0 +1,10 @@
+[default]
+name=Default
+runtime=host
+config-opts=
+run-opts=
+prefix=/home/jayraj/.cache/gnome-builder/install/Protocol-WebSocket-0.26/host
+app-id=
+postbuild=
+prebuild=
+default=true

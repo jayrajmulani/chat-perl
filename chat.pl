@@ -27,7 +27,7 @@ print <<"EOF";
 \t2. Create contact
 \t3. View contacts
 \t4. Search contact
-\t5. Delete contact
+
 
 
 Please make a selection [1-4] or press Q to quit the program: 
@@ -42,8 +42,6 @@ if ($choice eq '2') {
 	&view && next MAIN;
 } elsif ($choice eq '4') {
 	&search && next MAIN;
-} elsif ($choice eq '5') {
-	&delete && next MAIN;
 } elsif ($choice eq '1') {
 	&chat && next MAIN;
 }elsif ($choice =~ /q/i) {
@@ -131,14 +129,6 @@ sub search {
 	return;
 }
 
-sub delete {
-	&clear;
-	print "\nNot implemented yet\n\n";
-	print "Press <ENTER> to continue ";
-	<STDIN>;
-	return 0;
-}
-
 sub chat{
 
 	&white("Please Enter your Screen Name...\n\nScreen Name: ");
@@ -193,13 +183,13 @@ sub client {
 
     if ($kpid) {
         &clear;
-        &green("Connection established client, Please Chat!\n\n");
+        &green("Connection established, Please Chat!\n\n");
 
         while (defined($in = <$socket>)) { # Listen on the socket.
             if ($in eq "/quit\n") {  # If received is equal to quit, quit.
                 &red("\nChat Ended\n\n");
                 kill 1, $kpid;
-                exit;
+               
             } elsif ($in eq "/ping\n") {
                 &ping;
             }
@@ -244,7 +234,7 @@ sub server {
 
         if ($kpid) {
             &clear;
-            &green("Connection established server, Please Chat!\n\n");
+            &green("Connection established, Please Chat!\n\n");
 
             while (defined($out = <STDIN>)) { # Print down the socket.
                 if ($out eq "/quit\n") {
@@ -255,7 +245,8 @@ sub server {
                     exit;
                 } elsif ($out eq "/ping\n") {
                     print $socket "$out";
-                } else {
+                } 
+                else {
                     print $socket "$name: $out";
                 }
             }
@@ -265,7 +256,7 @@ sub server {
                     &red("\nChat Ended\n\n");
                     close $socket;
                     kill 1, $kpid;
-                    exit;
+                    
                 } elsif ($in eq "/ping\n") {
                     &ping;
                 } else {
